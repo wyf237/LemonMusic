@@ -1,5 +1,18 @@
 # LemonMusic
 
+## 0. 开发所需的第三方控件
+
+StyleControl V4.02以上版本<BR>
+Tms V8.4以上版本<BR>
+NextGrid V6.0以上版本<BR>
+SuperObject<BR>
+VLClib V3.06<BR>
+VLC动态库<BR>
+bass动态库<BR>
+QRCode动态库<BR>
+DEVExpress V17.6以上版本<BR>
+
+
 ## 1. 国内4大音乐平台歌曲搜索
 
 ![avatar](pic/S-1.png)
