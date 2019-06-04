@@ -80,7 +80,7 @@ begin
   HP.IOHandler := SSL;
   HP.Request.UserAgent := UserAgent; // …Ë÷√UserAgent
   x := ID;
-  str_KuGou := HP.Get('https://wwwapi.kugou.com/yy/index.php?r=play/getdata&hash=' + ID);
+  str_KuGou := HP.Get('https://wwwapi.kugou.com/yy/index.php?r=play/getdata&mid=a55266deb33310dfea9f642586c6a04e&hash=' + ID);
   jo_KuGou := so(str_KuGou);
   result := jo_KuGou['data.play_url'].AsString; // œ¬‘ÿµÿ÷∑
   FreeAndNil(HP);

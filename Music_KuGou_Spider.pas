@@ -20,7 +20,7 @@ type
     const
       UserAgent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.3408.400 QQBrowser/9.6.12028.400';
       KuGouInfo = 'http://songsearch.kugou.com/song_search_v2?&page=1&platform=WebFilter&filter=2&iscorrection=1&pagesize='; // +歌名
-      KuGouDownLoad = 'http://www.kugou.com/yy/index.php?r=play/getdata';
+      KuGouDownLoad = 'http://www.kugou.com/yy/index.php?r=play/getdata&mid=a55266deb33310dfea9f642586c6a04e';
     var
       KuGou: Word; // 搜索结果计数
   public

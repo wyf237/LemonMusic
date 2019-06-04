@@ -1563,7 +1563,7 @@ begin
     F_Top_Search.Visible := True;
     F_Top_Recom.Visible := False;
 
-    Search_Count := 10;
+    Search_Count := 50;
 
     MEM_QQ.Active := false;
     MEM_QQ.Close;
