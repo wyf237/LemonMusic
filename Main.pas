@@ -98,7 +98,6 @@ type
     POP_Options: TAdvPopupMenu;
     N1: TMenuItem;
     N2: TMenuItem;
-    BTN_Task: TscGPGlyphButton;
     BTN_Like: TscGPButton;
     LB_Voive: TscGPLabel;
     TB_Main: TTaskbar;
@@ -395,7 +394,6 @@ type
     procedure PN_Bottom_WaveMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
     procedure Trc_VoiceChange(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure BTN_TaskClick(Sender: TObject);
     procedure BTN_LikeClick(Sender: TObject);
     procedure AP_MainCanChangePage(APage: TscAppPagerPage; var ACanChange: Boolean);
     procedure AP_MainChangingPage(Sender: TObject);
@@ -470,10 +468,6 @@ var
   IO: IO_List; // 实例化JSON配置读写操作的自定义类
   F_Top_Search, F_Top_Recom: TFrame; //存储显示数据页面的头部内容，搜索来则显示按钮，列表详细则显示歌单或专辑内容
 
-var
-  MainH, FirH, SecH: THandle;
-  MainR, FirR, SecR: TRect;
-
 const
   UserAgent = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.3408.400 QQBrowser/9.6.12028.400';
   DouBanInfo = 'https://douban.fm/j/v2/query/all?start=0&limit='; // +歌名
@@ -482,7 +476,7 @@ implementation
 
 uses
   Web.HTTPApp, Winapi.GDIPOBJ, Winapi.GDIPAPI, superobject, Mini, List, Taskbar,
-  Task_Menu, SetAndAbout, Msg, InfoFromID, Music_QQ_Spider, Music_163_Spider,
+  SetAndAbout, Msg, InfoFromID, Music_QQ_Spider, Music_163_Spider,
   Music_KuGou_Spider, Music_KuWo_Spider, Loading, Start, Top_Search, Top_Recom,
   Play_MV, uZintInterface, uZintBarcode, QRCode, Clipbrd;
 {$R *.dfm}
@@ -540,7 +534,7 @@ begin
       begin//清空播放列表的播放标识为白色，后面播放再显示红色
         Fm_List.NG_List.Cell[0, i].Color := clWhite;
       end;
-      Url := Get_New_Url(id_idx, MEM.FieldByName('Song_ID').AsString);
+      Url := Get_New_Url(id_idx, MEM.FieldByName('Song_ID').AsString);//获取歌曲地址
       HS := Get_Music_HS(Url);
       Fm_MiniBox.Music_Logo_Img.Picture.Assign(Get_Img(MEM.FieldByName('Song_Img').AsString, 50, 50)); // 显示图片
       Fm_MiniBox.Lb_Song_Name.Caption := MEM.FieldByName('Song_Name').AsString; // Mini窗口显示歌名
@@ -646,7 +640,6 @@ begin // 右键菜单和双击播放
     BASS_ChannelPlay(HS, false);
     BTN_Play_Pause.ImageIndex := 1; // 播放图标为暂停
     Fm_MiniBox.BTN_Play_Pause.ImageIndex := 1; // 迷你窗口播放图标为暂停
-    Fm_TaskBar.BTN_Play_Pause.ImageIndex := 1; // 任务栏窗口播放图标为暂停
     TB_Main.TaskBarButtons[1].Icon := ico_Pause; //任务栏缩略图按钮显示为暂停
     N_Play_Pause.ImageIndex := 5; // 任务栏播放图标为暂停
     N_Play_Pause.Caption := '暂停';
@@ -660,7 +653,6 @@ begin // 右键菜单和双击播放
     TMR_Play.Enabled := false;
     BTN_Play_Pause.ImageIndex := 0; // 播放图标为播放
     Fm_MiniBox.BTN_Play_Pause.ImageIndex := 0; // 迷你窗口播放图标为播放
-    Fm_TaskBar.BTN_Play_Pause.ImageIndex := 0; // 任务栏窗口播放图标为播放
     TB_Main.TaskBarButtons[1].Icon := ico_Play; //任务栏缩略图按钮显示为播放
     N_Play_Pause.ImageIndex := 4; // 任务栏播放图标为播放
     N_Play_Pause.Caption := '播放';
@@ -1383,7 +1375,6 @@ begin
   TMR_Play.Enabled := false;
   TMR_Bottom_Wave.Enabled := false;
   BASS_ChannelStop(HS);
-  MoveWindow(SecH, 0, 0, SecR.Right - SecR.Left, SecR.Bottom - SecR.Top, True);
   Application.Terminate;
 end;
 
@@ -1411,7 +1402,6 @@ begin (* 设置为单曲循环 *)
   BTN_Loop.Hint := '单曲循环';
   Loop_Type := 1;
   CP_Loop.Close;
-  Fm_Task_Menu.BTN_One.Down := True;
 end;
 
 procedure TFm_Main.BTN_LoopMouseEnter(Sender: TObject);
@@ -1451,7 +1441,6 @@ begin (* 设置为列表循环 *)
   BTN_Loop.Hint := '列表循环';
   Loop_Type := 0;
   CP_Loop.Close;
-  Fm_Task_Menu.BTN_List.Down := True;
 end;
 
 procedure TFm_Main.BTN_Open_Close_HomeClick(Sender: TObject);
@@ -1478,7 +1467,6 @@ begin(*单击播放暂停*)
       TMR_Play.Enabled := True; // 播放音乐
       BASS_ChannelPlay(HS, false);
       Fm_MiniBox.BTN_Play_Pause.ImageIndex := 1; // 迷你窗口播放按钮显示为暂停
-      Fm_TaskBar.BTN_Play_Pause.ImageIndex := 1; // 任务栏窗口播放图标为暂停
       BTN_Play_Pause.ImageIndex := 1; // 播放按钮显示为暂停
       N_Play_Pause.ImageIndex := 5; // 任务栏按钮显示为暂停
       TB_Main.TaskBarButtons[1].Icon := ico_Pause; //任务栏缩略图按钮显示为暂停
@@ -1491,7 +1479,6 @@ begin(*单击播放暂停*)
       TMR_Play.Enabled := false; // 停止播放音乐
       BASS_ChannelPause(HS);
       Fm_MiniBox.BTN_Play_Pause.ImageIndex := 0; // 迷你窗口播放按钮显示为播放
-      Fm_TaskBar.BTN_Play_Pause.ImageIndex := 0; // 任务栏窗口播放图标为播放
       BTN_Play_Pause.ImageIndex := 0; // 播放按钮显示为播放
       N_Play_Pause.ImageIndex := 4; // 任务栏按钮显示为播放
       TB_Main.TaskBarButtons[1].Icon := ico_Play; //任务栏缩略图按钮显示为播放
@@ -1509,7 +1496,6 @@ begin(*设置随机播放*)
   BTN_Loop.Hint := '随机循环';
   Loop_Type := 2;
   CP_Loop.Close;
-  Fm_Task_Menu.BTN_Random.Down := True;
 end;
 
 procedure TFm_Main.BTN_SmallClick(Sender: TObject);
@@ -1522,22 +1508,6 @@ begin(*显示迷你窗口*)
   SetWindowPos(Fm_MiniBox.Handle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE or SWP_NOSIZE);
 end;
 
-procedure TFm_Main.BTN_TaskClick(Sender: TObject);
-begin(*最小化到任务栏控制*)
-  Fm_Main.Hide; // 隐藏主窗体
-  Tray_Main.Visible := false; // 取消托盘显示
-  MainH := FindWindow(PChar('Shell_TrayWnd'), nil); // Shell_TaryWnd句柄
-  FirH := FindWindowEX(MainH, 0, 'ReBarWindow32', nil); // ReBarWindow32句柄
-  SecH := FindWindowEX(FirH, 0, 'MSTaskSwWClass', nil); // MSTaskSwWClass最小化窗口层句柄
-  GetWindowRect(MainH, MainR);
-  GetWindowRect(FirH, FirR);
-  GetWindowRect(SecH, SecR);
-  MoveWindow(SecH, 0, 0, SecR.Right - SecR.Left - Fm_TaskBar.Width, SecR.Bottom - SecR.Top, True); // 预留放置窗口的位置
-  Fm_TaskBar.ParentWindow := FirH;
-  MoveWindow(Fm_TaskBar.Handle, SecR.Right - SecR.Left - Fm_TaskBar.Width + 1, (FirR.Bottom - FirR.Top - Fm_TaskBar.Height) div 2, Fm_TaskBar.Width, Fm_TaskBar.Height, True);
-  Fm_TaskBar.Visible := True;
-end;
-
 procedure TFm_Main.BTN_VoiceClick(Sender: TObject);
 begin(* 单击音量按钮设置静音 *)
   if Trc_Voice.Value = 0 then
@@ -1546,8 +1516,6 @@ begin(* 单击音量按钮设置静音 *)
 //    BTN_Multi.ImageIndex := 4;
     BTN_Voice.HotImageIndex := 5;
 //    BTN_Multi.HotImageIndex := 5;
-    Fm_Task_Menu.BTN_Voice.ImageIndex := 4;
-    Fm_Task_Menu.BTN_Voice.HotImageIndex := 5;
     Trc_Voice.Value := VoiceX;
     BASS_ChannelSetAttribute(HS, BASS_ATTRIB_VOL, Trc_Voice.Value / Trc_Voice.MaxValue);
   end
@@ -1558,8 +1526,6 @@ begin(* 单击音量按钮设置静音 *)
 //    BTN_Multi.ImageIndex := 6;
     BTN_Voice.HotImageIndex := 7;
 //    BTN_Multi.HotImageIndex := 7;
-    Fm_Task_Menu.BTN_Voice.ImageIndex := 6;
-    Fm_Task_Menu.BTN_Voice.HotImageIndex := 7;
     Trc_Voice.Value := 0;
     BASS_ChannelSetAttribute(HS, BASS_ATTRIB_VOL, Trc_Voice.Value / Trc_Voice.MaxValue);
   end;
@@ -1955,8 +1921,6 @@ begin (*调整音量*)
 //    BTN_Multi.HotImageIndex := 5;
   end;
   LB_Voive.Caption := IntToStr(Trc_Voice.Value);
-  Fm_Task_Menu.Trc_Voice.Value := Trc_Voice.Value;
-  Fm_Task_Menu.LB_Voice_Task.Caption := IntToStr(Trc_Voice.Value);
 end;
 
 procedure TFm_Main.VMsgAlbumSong(Sender: TObject; AMsg: TVMsg);

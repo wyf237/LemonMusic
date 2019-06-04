@@ -12,9 +12,7 @@ uses
   InfoFromID in 'InfoFromID.pas',
   INIX in 'INIX.pas',
   Data in 'Data.pas',
-  TaskBar in 'TaskBar.pas' {Fm_TaskBar},
   SetAndAbout in 'SetAndAbout.pas' {Fm_ALS},
-  Task_Menu in 'Task_Menu.pas' {Fm_Task_Menu},
   Msg in 'Msg.pas' {Fm_Msg},
   Loading in 'Loading.pas' {Fm_Loading},
   Start in 'Start.pas' {Fm_Start},
@@ -39,9 +37,7 @@ begin
   Application.CreateForm(TFm_Main, Fm_Main);
   Application.CreateForm(TFm_MiniBox, Fm_MiniBox);
   Application.CreateForm(TFm_List, Fm_List);
-  Application.CreateForm(TFm_TaskBar, Fm_TaskBar);
   Application.CreateForm(TFm_ALS, Fm_ALS);
-  Application.CreateForm(TFm_Task_Menu, Fm_Task_Menu);
   Application.CreateForm(TFm_Msg, Fm_Msg);
   Application.CreateForm(TFm_Loading, Fm_Loading);
   Application.CreateForm(TFm_Setting, Fm_Setting);

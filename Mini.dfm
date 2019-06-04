@@ -57,10 +57,10 @@ object Fm_MiniBox: TFm_MiniBox
       300
       50)
     object BTN_Close: TscGPGlyphButton
-      Left = 280
-      Top = 7
-      Width = 15
-      Height = 15
+      Left = 270
+      Top = 0
+      Width = 25
+      Height = 25
       Anchors = [akTop, akRight]
       TabOrder = 0
       OnClick = BTN_CloseClick
@@ -88,14 +88,14 @@ object Fm_MiniBox: TFm_MiniBox
       Options.PressedColor2 = 16417410
       Options.FocusedColor2 = 16417410
       Options.DisabledColor2 = 16417410
-      Options.NormalColorAlpha = 255
-      Options.HotColorAlpha = 150
-      Options.PressedColorAlpha = 150
-      Options.FocusedColorAlpha = 150
-      Options.DisabledColorAlpha = 255
-      Options.NormalColor2Alpha = 150
-      Options.HotColor2Alpha = 150
-      Options.PressedColor2Alpha = 150
+      Options.NormalColorAlpha = 0
+      Options.HotColorAlpha = 0
+      Options.PressedColorAlpha = 0
+      Options.FocusedColorAlpha = 0
+      Options.DisabledColorAlpha = 0
+      Options.NormalColor2Alpha = 0
+      Options.HotColor2Alpha = 0
+      Options.PressedColor2Alpha = 0
       Options.FocusedColor2Alpha = 150
       Options.DisabledColor2Alpha = 255
       Options.FrameNormalColor = clBtnText
@@ -136,17 +136,17 @@ object Fm_MiniBox: TFm_MiniBox
       Options.ArrowDisabledColorAlpha = 125
       Options.StyleColors = True
       GlyphOptions.NormalColor = clWhite
-      GlyphOptions.HotColor = clWhite
-      GlyphOptions.PressedColor = clWhite
+      GlyphOptions.HotColor = clRed
+      GlyphOptions.PressedColor = clRed
       GlyphOptions.FocusedColor = clWhite
       GlyphOptions.DisabledColor = clWhite
-      GlyphOptions.NormalColorAlpha = 0
+      GlyphOptions.NormalColorAlpha = 100
       GlyphOptions.HotColorAlpha = 255
       GlyphOptions.PressedColorAlpha = 255
       GlyphOptions.FocusedColorAlpha = 0
       GlyphOptions.DisabledColorAlpha = 0
       GlyphOptions.Kind = scgpbgkClose
-      GlyphOptions.Thickness = 2
+      GlyphOptions.Thickness = 1
       GlyphOptions.ThicknessScaled = False
       GlyphOptions.Size = 0
       GlyphOptions.StyleColors = True
@@ -165,10 +165,10 @@ object Fm_MiniBox: TFm_MiniBox
       AllowAllUp = False
     end
     object BTN_Small: TscGPGlyphButton
-      Left = 280
-      Top = 27
-      Width = 15
-      Height = 15
+      Left = 270
+      Top = 25
+      Width = 25
+      Height = 25
       Anchors = [akTop, akRight]
       TabOrder = 3
       OnClick = BTN_SmallClick
@@ -196,14 +196,14 @@ object Fm_MiniBox: TFm_MiniBox
       Options.PressedColor2 = 16417410
       Options.FocusedColor2 = 16417410
       Options.DisabledColor2 = 16417410
-      Options.NormalColorAlpha = 255
-      Options.HotColorAlpha = 150
-      Options.PressedColorAlpha = 150
-      Options.FocusedColorAlpha = 150
-      Options.DisabledColorAlpha = 255
-      Options.NormalColor2Alpha = 150
-      Options.HotColor2Alpha = 150
-      Options.PressedColor2Alpha = 150
+      Options.NormalColorAlpha = 0
+      Options.HotColorAlpha = 0
+      Options.PressedColorAlpha = 0
+      Options.FocusedColorAlpha = 0
+      Options.DisabledColorAlpha = 0
+      Options.NormalColor2Alpha = 0
+      Options.HotColor2Alpha = 0
+      Options.PressedColor2Alpha = 0
       Options.FocusedColor2Alpha = 150
       Options.DisabledColor2Alpha = 255
       Options.FrameNormalColor = clBtnText
@@ -248,13 +248,13 @@ object Fm_MiniBox: TFm_MiniBox
       GlyphOptions.PressedColor = clWhite
       GlyphOptions.FocusedColor = clWhite
       GlyphOptions.DisabledColor = clWhite
-      GlyphOptions.NormalColorAlpha = 0
+      GlyphOptions.NormalColorAlpha = 100
       GlyphOptions.HotColorAlpha = 255
       GlyphOptions.PressedColorAlpha = 255
       GlyphOptions.FocusedColorAlpha = 0
       GlyphOptions.DisabledColorAlpha = 0
       GlyphOptions.Kind = scgpbgkDownArrow
-      GlyphOptions.Thickness = 2
+      GlyphOptions.Thickness = 1
       GlyphOptions.ThicknessScaled = False
       GlyphOptions.Size = 0
       GlyphOptions.StyleColors = True
@@ -273,7 +273,7 @@ object Fm_MiniBox: TFm_MiniBox
       AllowAllUp = False
     end
     object BTN_Voice: TscGPButton
-      Left = 206
+      Left = 210
       Top = 15
       Width = 20
       Height = 20
@@ -390,7 +390,7 @@ object Fm_MiniBox: TFm_MiniBox
       AllowAllUp = False
     end
     object BTN_PlayList: TscGPButton
-      Left = 254
+      Left = 240
       Top = 15
       Width = 20
       Height = 20

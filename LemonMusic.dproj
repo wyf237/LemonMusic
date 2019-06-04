@@ -116,16 +116,8 @@
         <DCCReference Include="InfoFromID.pas"/>
         <DCCReference Include="INIX.pas"/>
         <DCCReference Include="Data.pas"/>
-        <DCCReference Include="TaskBar.pas">
-            <Form>Fm_TaskBar</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
         <DCCReference Include="SetAndAbout.pas">
             <Form>Fm_ALS</Form>
-            <FormType>dfm</FormType>
-        </DCCReference>
-        <DCCReference Include="Task_Menu.pas">
-            <Form>Fm_Task_Menu</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Msg.pas">
