@@ -36,8 +36,6 @@ type
     procedure BTN_VoiceClick(Sender: TObject);
     procedure BTN_PlayListClick(Sender: TObject);
     procedure FormShow(Sender: TObject);
-    procedure Lb_Song_SingerMouseEnter(Sender: TObject);
-    procedure Lb_Song_NameMouseEnter(Sender: TObject);
   private
     { Private declarations }
   public
@@ -176,16 +174,6 @@ begin
   bo := true;
 end;
 
-procedure TFm_MiniBox.Lb_Song_NameMouseEnter(Sender: TObject);
-begin
-  Lb_Song_Name.Hint := Lb_Song_Name.Caption;
-end;
-
-procedure TFm_MiniBox.Lb_Song_SingerMouseEnter(Sender: TObject);
-begin
-  Lb_Song_Singer.Hint := Lb_Song_Singer.Caption;
-end;
-
 procedure TFm_MiniBox.WMForm_Move(var Msg: TMessage);
 begin
   if (self.Top < 10) and (Self.Top <> 0) and bo then
@@ -203,7 +191,7 @@ var
 begin
   GetWindowRect(Self.PVP_Info.Handle, rc); //取矩形区域
   GetCursorPos(pt); //取得当前鼠标所在位置
-  if PtInRect(rc, pt) then //如果鼠标不在窗体范围内
+  if PtInRect(rc, pt) then //如果鼠标不在Self.PVP_Info范围内
   begin
 //    if PV_Main.PageIndex <> 0 then
 //    begin
@@ -219,7 +207,7 @@ begin
   end;
   GetWindowRect(Self.Handle, rcF); //取矩形区域
   GetCursorPos(ptF); //取得当前鼠标所在位置
-  if PtInRect(rcF, ptF) and (Self.Top < 0) then //如果鼠标在窗体范围内
+  if PtInRect(rcF, ptF) and (Self.Top =-45) then //如果鼠标在窗体范围内
   begin
     bo := false;
     for i := 9 downto 1 do

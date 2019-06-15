@@ -534,7 +534,7 @@ begin
       begin//清空播放列表的播放标识为白色，后面播放再显示红色
         Fm_List.NG_List.Cell[0, i].Color := clWhite;
       end;
-      Url := Get_New_Url(id_idx, MEM.FieldByName('Song_ID').AsString);//获取歌曲地址
+      Url := Get_New_Url(id_idx, MEM.FieldByName('Song_ID').AsString); //获取歌曲地址
       HS := Get_Music_HS(Url);
       Fm_MiniBox.Music_Logo_Img.Picture.Assign(Get_Img(MEM.FieldByName('Song_Img').AsString, 50, 50)); // 显示图片
       Fm_MiniBox.Lb_Song_Name.Caption := MEM.FieldByName('Song_Name').AsString; // Mini窗口显示歌名
@@ -977,7 +977,6 @@ var(*单击分类项目显示明细*)
 begin
   F_Top_Search.Visible := False;
   F_Top_Recom.Visible := true;
-
   DS_Songs.DataSet := MEM_Pub;
   MEM_Pub.Close;
   case Fm_Main.TC_Home.Items[Sender.Index].Tag of
@@ -998,6 +997,10 @@ begin
   SF_Main.HideClientInActiveEffect;
   CL_Search.GridView := TBV_Songs;
   AP_Main.ItemIndex := 0;
+  TFr_Top_Recom(F_Top_Recom).IMG_Start.Picture.Bitmap.Assign(Fm_Main.TC_Home.Items[Sender.Index].Glyph.Image);
+  TFr_Top_Recom(F_Top_Recom).LB_Start_Title.Caption := MEM_Pub.FieldByName('List_Title').AsString;
+  TFr_Top_Recom(F_Top_Recom).LB_Start_Info.Caption := MEM_Pub.FieldByName('List_Des').AsString;
+  TFr_Top_Recom(F_Top_Recom).LB_Start_Info.Hint := MEM_Pub.FieldByName('List_Des').AsString;
 end;
 
 procedure TFm_Main.ItemXClick(Sender: TdxTileControlItem);
@@ -1423,10 +1426,6 @@ begin(*最小化*)
     begin
       M_Tray.OnClick(Sender);
     end;
-//    if Fm_Msg.RB_Task.Checked then
-//    begin
-//      Fm_Main.BTN_Task.OnClick(Sender);
-//    end;
     if Fm_Msg.RB_Quite.Checked then
     begin
       BTN_Close.OnClick(Sender);
@@ -1946,8 +1945,8 @@ begin
       Fieldbyname('Song_SingerID').AsString := vMsg.Song_SingerID;
       Fieldbyname('Song_MVID').AsString := vMsg.Song_MVID;
       Fieldbyname('Song_Lrc').AsString := vMsg.Song_Lrc;
-//      Fieldbyname('List_Title').AsString := vMsg.List_Title;
-//      Fieldbyname('List_Des').AsString := vMsg.List_Des;
+      Fieldbyname('List_Title').AsString := vMsg.List_Title;
+      Fieldbyname('List_Des').AsString := vMsg.List_Des;
       Post;
       EnableControls;
     end;

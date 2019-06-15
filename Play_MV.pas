@@ -79,20 +79,33 @@ begin
     if (oldA <> alNone) then
       PLVP_MV.Align := alNone;
     Fm_FullScreen.SetBounds(Monitor.Left, Monitor.Top, Monitor.Width, Monitor.Height);
+//    PLVP_MV.Parent := Fm_FullScreen;
     Windows.SetParent(PLVP_MV.Handle, Fm_FullScreen.Handle);
+//    PLVP_MV.Align := alClient;
     PLVP_MV.SetBounds(0, 0, Fm_FullScreen.Width, Fm_FullScreen.Height);
     BTN_Max_Min.ImageIndex := 30;
-    Fm_FullScreen.ShowModal;
-    BTN_Max_Min.ImageIndex := 29;
-    PLVP_MV.SetBounds(oldL, oldT, oldW, oldH);
-    Windows.SetParent(PLVP_MV.Handle, SELF.Handle);
-    if (oldA <> alNone) then
-      PLVP_MV.Align := oldA;
+    Fm_FullScreen.Show;
+//    Fm_FullScreen.Free;
+//    BTN_Max_Min.ImageIndex := 29;
+//    PLVP_MV.SetBounds(oldL, oldT, oldW, oldH);
+//    Windows.SetParent(PLVP_MV.Handle, SELF.Handle);
+//    if (oldA <> alNone) then
+//      PLVP_MV.Align := oldA;
   end
   else
   begin
-    Fm_FullScreen.Close;
+//    Fm_FullScreen.Close;
+//    Fm_FullScreen.Free;
     BTN_Max_Min.ImageIndex := 29;
+    Windows.SetParent(PLVP_MV.Handle, SELF.Handle);
+    PLVP_MV.SetBounds(oldL, oldT, oldW, oldH);
+//     PLVP_MV.Parent := Self.PN_MV;
+
+//    Fm_FullScreen.Close;
+    Fm_FullScreen.Close;
+//    aFullScreenForm.Free;
+    if (oldA <> alNone) then
+      PLVP_MV.Align := oldA;
   end;
 end;
 
@@ -130,7 +143,7 @@ begin(*初始化插件位置并载入*)
   if (libvlc_dynamic_dll_error <> '') then
   begin
     MessageDlg(libvlc_dynamic_dll_error, mtError, [mbOK], 0);
-    Application.Terminate;
+    Close;
     exit;
   end;
 
@@ -177,7 +190,7 @@ end;
 
 procedure TFm_MV.Trc_MV_VideoMouseMove(Sender: TObject; Shift: TShiftState; X, Y: Integer);
 begin
-Trc_MV_Video.OnChange := NIL;
+  Trc_MV_Video.OnChange := NIL;
 end;
 
 procedure TFm_MV.Trc_MV_VoiceChange(Sender: TObject);

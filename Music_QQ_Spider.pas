@@ -29,7 +29,7 @@ type(*获取普通音乐信息的线程*)(*Done*)
       QQDownLoad2 = '"],"songtype":[0],"uin":"0"}}}';
     var
       Res_Json: string;
-      Song_Name, Song_Album, Song_Singer, Song_Time, Song_Img, Song_Url, Song_ID, Album_ID, Singer_ID, MV_ID: string;
+      Song_Name, Song_Album, Song_Singer, Song_Time, Song_Img, Song_Url, Song_ID: string;
       QQ: Word; // 搜索结果计数
   public
     var
@@ -105,7 +105,6 @@ type(*获取MV信息的线程*)
       MV_Num: Word; //搜索数量
     constructor Create(S_Key_Word: string; S_Num: Integer); overload; //构造函数
   protected
-    procedure Add_To_MV_Grid; //添加到无损表格显示
     procedure Get_MV_Img; //获取MV缩略图
     procedure Execute; override;
   end;
@@ -115,7 +114,7 @@ type(*程序启动时获取推荐类型列表线程*)(*Done*)
   public
     constructor Create(TCX: TdxTileControl); overload;
   private
-    RecTitle, RecId: string; //推荐种类的名称和对应ID
+//    RecTitle, RecId: string; //推荐种类的名称和对应ID
     TC: TdxTileControl;
     it: TdxTileControlItem;
   protected
@@ -505,25 +504,6 @@ begin
   FreeAndNil(SSL);
 end;
 
-{ Get_MV_Thread获取MV信息 }
-
-procedure Get_MV_Info.Add_To_MV_Grid;
-begin(*数据添加到MV表格显示*)
-//  with Fm_Main.NG_MV.AddRow.Cells do
-//  begin
-//    Item[Fm_Main.MV_Col_No.Index].AsInteger := Fm_Main.NG_MV.RowCount;
-////    Item[Fm_Main.MV_Col_Pic.Index].Data := Song_Pic; // 专辑图片
-//    Item[Fm_Main.MV_Col_Name.Index].AsString := Song_Name; // 歌名
-//    Item[Fm_Main.MV_Col_Singer.Index].AsString := Song_Singer; // 歌手名
-//    Item[Fm_Main.MV_Col_Img.Index].AsString := Song_Img; // 图片
-//    Item[Fm_Main.MV_Col_Url.Index].AsString := 'http://dl.stream.qqmusic.qq.com/' + Song_Url; // 下载地址
-//    Item[Fm_Main.MV_Col_Time.Index].AsString := Format('%.2d', [StrToInt(Song_Time) div 60]) + ':' + Format('%.2d ', [StrToInt(Song_Time) mod 60]); // 时长格式化
-//    Item[Fm_Main.MV_Col_ID.Index].AsString := Song_ID; //MV ID
-//    Item[Fm_Main.MV_Col_From.Index].AsString := '1';
-//  end;
-//  Fm_Main.SB_MV.Max := Fm_Main.NG_MV.RowCount;
-end;
-
 constructor Get_MV_Info.Create(S_Key_Word: string; S_Num: Integer);
 begin
   MV_Name := S_Key_Word; //搜索名称
@@ -556,7 +536,6 @@ begin
     Song_Img := joMV['data.mv.list[' + inttostr(MV) + '].mv_pic_url'].AsString; //图片
     Song_ID := joMV['data.mv.list[' + inttostr(MV) + '].v_id'].AsString; //歌曲ID
     index := MV; //下标
-    Synchronize(Add_To_MV_Grid); //添加到榜单列表，并显示
     Synchronize(Get_MV_Img); //显示图片
     inc(MV);
   end;
@@ -1040,6 +1019,8 @@ begin
     vMsg.Song_AlbumID := Album_ID; //专辑id
     vMsg.Song_MVID := joAlbum['data.list[' + inttostr(ct) + '].vid'].AsString; //MV ID
     vMsg.Song_Lrc := '';
+    vMsg.List_Des := joAlbum['data.desc'].AsString; //歌单描述
+    vMsg.List_Title := joAlbum['data.name'].AsString; //歌单名
     GlobalVMsgMonitor.PostVMsg(vMsg); //发送消息
     inc(ct);
   end;
