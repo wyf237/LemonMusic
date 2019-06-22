@@ -1673,6 +1673,7 @@ begin
   F_Top_Recom.Parent := APP_Music;
   F_Top_Recom.Align := alTop;
   F_Top_Recom.Visible := false;
+
   Fm_Start.LB_Satate.Caption := '正在加载推荐分类……';
   Show_RecType := Get_List_Type.Create(TC_Recome); //获取推荐分类
   Get_List := Get_List_Songs.Create('', '10', 0);
